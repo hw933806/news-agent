@@ -22,7 +22,8 @@ run:
 
 enabled:
   - FERG
-  - RKT
-  - AUR
-  - WRBY
-  - CPNG
+  # Not yet configured (empty stock folders) — add back once profile/sources/signal exist:
+  # - RKT
+  # - AUR
+  # - WRBY
+  # - CPNG
