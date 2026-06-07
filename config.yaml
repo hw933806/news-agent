@@ -1,0 +1,28 @@
+# News Agent — global config
+# Adding a stock: create stocks/<TICKER>/ (copy an existing one) and list it under `enabled`.
+
+email:
+  to: hw933806@gmail.com
+  from: hw933806@gmail.com          # sender Gmail account
+  delivery: gmail_smtp              # gmail_smtp | gmail_api
+  # App Password is NOT stored here. Read from env var or a local secrets file
+  # that is git-ignored. See engine/deliver.py.
+  app_password_env: NEWS_AGENT_GMAIL_APP_PW
+  subject_template: "Daily Stock News — {date_et}"
+
+schedule:
+  send_time: "09:00"
+  timezone: America/New_York
+  runtime: remote_scheduled_agent   # fires regardless of laptop state
+
+run:
+  lookback_hours: 24                # news window per daily run
+  empty_ok: true                    # if nothing new, omit the stock (or skip email entirely)
+  skip_email_if_all_empty: true
+
+enabled:
+  - FERG
+  - RKT
+  - AUR
+  - WRBY
+  - CPNG

@@ -1,0 +1,16 @@
+# Never commit secrets
+*.secret
+secrets*
+.env
+*.app_password
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Scratch files from a run (state.json IS tracked on purpose — it's the dedupe cache)
+*.tmp
+emailed_items.json

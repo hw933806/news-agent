@@ -1,0 +1,48 @@
+# Shared macro signals. Each entry lists which stocks it moves and the relative
+# weight (high/med/low) for ranking within those stocks' sections.
+
+signals:
+  - id: fed_fomc
+    name: Fed / FOMC decision & guidance
+    source: Federal Reserve
+    moves: {RKT: high, FERG: high, CPNG: med, WRBY: med}
+
+  - id: mortgage_rates
+    name: 30-yr mortgage rate / 10-yr Treasury
+    source: Freddie Mac PMMS; US Treasury
+    moves: {RKT: high, FERG: med}
+
+  - id: housing_activity
+    name: Housing starts, permits, existing-home sales
+    source: US Census; NAR
+    moves: {FERG: high, RKT: high}
+
+  - id: remodeling
+    name: Repair/remodel activity (LIRA)
+    source: Harvard JCHS; NAHB
+    moves: {FERG: high}
+
+  - id: consumer_inflation
+    name: CPI / inflation, retail sales, consumer confidence
+    source: BLS; US Census; Conference Board
+    moves: {WRBY: high, CPNG: high}
+
+  - id: jobs
+    name: Jobs report (nonfarm payrolls)
+    source: BLS
+    moves: {FERG: med, RKT: med, WRBY: med, CPNG: med, AUR: low}
+
+  - id: freight_industrial
+    name: ISM Manufacturing, Cass Freight Index, truck tonnage
+    source: ISM; Cass; ATA
+    moves: {AUR: high, FERG: med}
+
+  - id: trade_tariffs
+    name: Tariffs / trade policy (imports, China)
+    source: USTR; press
+    moves: {CPNG: high, WRBY: med, FERG: med}
+
+  - id: korea_macro
+    name: KRW/USD FX, Bank of Korea rate, Korea retail sales
+    source: Bank of Korea; KOSTAT
+    moves: {CPNG: high}

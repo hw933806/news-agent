@@ -1,0 +1,27 @@
+# Sources for FERG, ordered by tier (tier 1 = highest signal).
+# tier drives ranking; `type` lets the engine pick the right fetch method.
+#
+# >>> CURATION HOOK: add the feeds/analysts/newsletters you already read here. <<<
+
+sources:
+  # Tier 1 — primary / company-specific
+  - {name: Ferguson Investor Relations, type: ir, url: "https://www.fergusonplc.com/en/investors.html", tier: 1}
+  - {name: SEC EDGAR (FERG filings/8-K), type: sec, query: "Ferguson Enterprises", tier: 1}
+  - {name: Analyst rating/PT changes, type: analyst, query: "Ferguson FERG analyst rating price target", tier: 1}
+
+  # Tier 2 — industry / trade press
+  - {name: Supply House Times, type: web, url: "https://www.supplyht.com/", tier: 2}
+  - {name: The Wholesaler, type: web, url: "https://www.thewholesaler.com/", tier: 2}
+  - {name: Plumbing & Mechanical, type: web, url: "https://www.pmmag.com/", tier: 2}
+  - {name: HVACR Business, type: web, url: "https://www.hvacrbusiness.com/", tier: 2}
+
+  # Tier 3 — macro / demand proxies (also covered centrally in macro/)
+  - {name: Census housing starts & permits, type: macro, ref: housing_activity, tier: 3}
+  - {name: NAHB builder sentiment, type: macro, ref: housing_activity, tier: 3}
+  - {name: Harvard JCHS LIRA (remodeling), type: macro, ref: remodeling, tier: 3}
+
+  # Tier 4 — general web sweep (catch-all, lowest priority)
+  - {name: General news search, type: web_search, query: "Ferguson Enterprises FERG", tier: 4}
+
+# >>> Add your personal feeds below (Substacks, X accounts, sell-side, Koyfin, etc.) <<<
+custom: []

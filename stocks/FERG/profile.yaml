@@ -1,0 +1,47 @@
+ticker: FERG
+name: Ferguson Enterprises
+description: >
+  North America's largest value-added distributor of plumbing & HVAC products.
+  Drivers: residential repair/remodel (RMI), new construction, commercial/civil
+  infrastructure, interest rates.
+
+# The universe of names whose news is relevant to FERG. `weight` biases ranking:
+# self > direct competitors / key partners > suppliers > broad read-throughs.
+universe:
+  self:
+    - {ticker: FERG, name: Ferguson, weight: high}
+
+  competitors:
+    - {ticker: WSO,  name: Watsco, weight: high}
+    - {ticker: CNM,  name: Core & Main, weight: high}
+    - {ticker: BLDR, name: Builders FirstSource, weight: med}
+    - {ticker: BECN, name: Beacon, weight: med}
+    - {ticker: SITE, name: SiteOne Landscape, weight: med}
+    - {ticker: POOL, name: Pool Corp, weight: low}
+    - {ticker: GWW,  name: W.W. Grainger, weight: med}
+    - {ticker: FAST, name: Fastenal, weight: low}
+    - {ticker: MSM,  name: MSC Industrial, weight: low}
+    - {ticker: HD,   name: Home Depot, weight: med}
+    - {ticker: LOW,  name: Lowe's, weight: med}
+
+  suppliers:
+    - {ticker: LII,  name: Lennox, weight: med}
+    - {ticker: CARR, name: Carrier, weight: med}
+    - {ticker: TT,   name: Trane, weight: med}
+    - {ticker: AOS,  name: A.O. Smith, weight: low}
+    - {ticker: FBIN, name: Fortune Brands, weight: low}
+    - {ticker: MAS,  name: Masco, weight: low}
+    - {ticker: MLI,  name: Mueller Industries, weight: low}
+    - {ticker: ZWS,  name: Zurn Elkay, weight: low}
+    - {ticker: null, name: Kohler, weight: low}
+    - {ticker: null, name: Rheem, weight: low}
+
+  demand_read_throughs:   # homebuilders signal end-market demand
+    - {ticker: LEN, name: Lennar, weight: med}
+    - {ticker: DHI, name: D.R. Horton, weight: med}
+    - {ticker: PHM, name: PulteGroup, weight: low}
+    - {ticker: KBH, name: KB Home, weight: low}
+    - {ticker: TOL, name: Toll Brothers, weight: low}
+
+# Macro signal ids (from macro/macro.yaml) most relevant to this name.
+macro_focus: [mortgage_rates, housing_activity, remodeling, freight_industrial, jobs]
