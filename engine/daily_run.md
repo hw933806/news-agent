@@ -30,17 +30,18 @@ stock, ranked highest→lowest within each stock. If nothing new for a stock, om
 
 4. **Save** the body to `output/<YYYY-MM-DD>.md` (audit trail).
 
-5. **Send** via:
-   `python engine/deliver.py --to <to> --from <from> --subject "Daily Stock News — <date_et>" --body output/<date>.md`
-   (test first with `--dry-run`). Recipient/sender come from `config.yaml`.
+5. **Deliver in-app.** The cloud sandbox blocks outbound SMTP, so we do NOT send email.
+   Instead, the run's **final message IS the digest** — the reader opens it in the Claude
+   routines view (same as the other monitor agents). `deliver.py` is retained only for
+   manual/local use. If no stock has signal, the final message simply says "no signal today".
 
-6. **Record seen:** mark the emailed items as seen so they never repeat:
+6. **Record seen:** mark the delivered items as seen so they never repeat:
    `python engine/state.py mark <TICKER> <YYYY-MM-DD> < emailed_items.json` (per stock).
 
 7. **Persist state (remote runs only).** The cloud sandbox is ephemeral — commit the updated
-   dedupe cache and audit file back to the repo so tomorrow's run remembers what was sent:
+   dedupe cache and audit file back to the repo so tomorrow's run remembers what was shown:
    `git add stocks/*/state.json output/ && git commit -m "run <YYYY-MM-DD>" && git push`.
-   If nothing changed (empty day) or push fails, log it and continue — the email already went out.
+   If nothing changed (empty day) or push fails, log it and continue.
 
 ## Email template
 ```

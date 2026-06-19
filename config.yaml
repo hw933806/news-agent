@@ -16,7 +16,7 @@ schedule:
   runtime: remote_scheduled_agent   # fires regardless of laptop state
 
 run:
-  lookback_hours: 336               # TEMP catch-up window (14d) — revert to 24 after this run
+  lookback_hours: 72                # 3 days — covers the Fri→Mon weekend gap; dedupe (state.json) prevents repeats
   empty_ok: true                    # if nothing new, omit the stock (or skip email entirely)
   skip_email_if_all_empty: true
 
