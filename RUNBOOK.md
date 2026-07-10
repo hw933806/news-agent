@@ -6,7 +6,7 @@ the daily agent's instructions live in `engine/daily_run.md`.)
 _Last updated: 2026-07-10._
 
 ## What it does
-Every weekday at **9:00am ET**, a remote Claude agent gathers the trailing news window across
+Every weekday at **8:00am ET**, a remote Claude agent gathers the trailing news window across
 each enabled stock's universe + mapped macro signals, judges signal, dedupes against what was
 already shown, and produces a one-page digest. **Delivery is in-app** — you read the digest as
 the run's output in the Claude routines view (same pattern as the AI Frontier Monitor agents).
@@ -18,7 +18,7 @@ A short or empty digest is a success — noise is the enemy.
 |---|---|---|
 | Code + config | GitHub: **hw933806/news-agent** (PUBLIC) | Cloud agent clones this each run. Public so clone needs no creds (see "why" below). No secrets in the repo. |
 | Schedule | claude.ai routine **`trig_01BBa7EH3oW4Cq8xbD6nFg3D`** | Manage/read output: https://claude.ai/code/routines/trig_01BBa7EH3oW4Cq8xbD6nFg3D |
-| Cron | `0 13 * * 1-5` (UTC) | = 9am ET **during EDT**. See DST note below. |
+| Cron | `0 12 * * 1-5` (UTC) | = 8am ET **during EDT**. See DST note below. |
 | Model | Opus 4.8 | Judgment-heavy task. |
 | Runtime | Anthropic cloud (CCR) | Ephemeral sandbox — nothing local persists; state is pushed back to the repo. Outbound **SMTP is blocked** (HTTPS is allowed). |
 | Delivery | In-app (run output) | The agent's final message IS the digest. No email. `deliver.py` retained for manual/local use only. |
@@ -58,8 +58,8 @@ field get push by default; this one had all channels explicitly false — that's
 digests never notified.
 
 ### DST caveat
-Cron is fixed in **UTC**. `0 13` = 9am ET only while New York is on EDT (Mar–Nov). When
-clocks fall back (early Nov), update the routine to `0 14 * * 1-5` to stay at 9am ET.
+Cron is fixed in **UTC**. `0 12` = 8am ET only while New York is on EDT (Mar–Nov). When
+clocks fall back (early Nov), update the routine to `0 13 * * 1-5` to stay at 8am ET.
 
 ## Daily flow (what the agent does)
 See `engine/daily_run.md` for the authoritative steps. In short: read config → for each

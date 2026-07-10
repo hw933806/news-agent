@@ -11,7 +11,7 @@ email:
   subject_template: "Daily Stock News — {date_et}"
 
 schedule:
-  send_time: "09:00"
+  send_time: "08:00"
   timezone: America/New_York
   runtime: remote_scheduled_agent   # fires regardless of laptop state
 
