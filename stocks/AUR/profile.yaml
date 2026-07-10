@@ -1,0 +1,47 @@
+ticker: AUR
+name: Aurora Innovation
+description: >
+  L4 autonomous trucking (Aurora Driver). Driverless commercial ops since Apr 2025
+  (Dallas–Houston); 10 driverless routes across TX/NM/AZ as of Feb 2026, ~109 trucks,
+  targeting 200+ by end-2026. Revenue still tiny (FY26 guide $14–16M) — a milestone
+  stock: lanes, truck counts, OEM production timelines, safety record, cash runway.
+
+# The universe of names whose news is relevant to AUR. `weight` biases ranking:
+# self > OEM partners / direct competitors > carriers > freight read-throughs.
+universe:
+  self:
+    - {ticker: AUR, name: Aurora Innovation, weight: high}
+
+  partners_oems:
+    - {ticker: PCAR, name: PACCAR (Peterbilt/Kenworth), weight: high}
+    - {ticker: null, name: Volvo Trucks / Volvo Autonomous Solutions (VNL Autonomous), weight: high}
+    - {ticker: null, name: International / Traton (LT Series, from Q2 2026), weight: med}
+    - {ticker: null, name: Continental (Aurora Driver hardware, mass production 2027), weight: med}
+    - {ticker: NVDA, name: NVIDIA (DRIVE Thor), weight: med}
+    - {ticker: FN,   name: Fabrinet (2nd-gen hardware kit builder), weight: low}
+
+  customers_carriers:
+    - {ticker: null, name: Hirschbach (500-truck intent, Driver-as-a-Service), weight: high}
+    - {ticker: UBER, name: Uber Freight, weight: med}
+    - {ticker: FDX,  name: FedEx, weight: med}
+    - {ticker: WERN, name: Werner, weight: med}
+    - {ticker: SNDR, name: Schneider, weight: med}
+    - {ticker: null, name: McLane (Berkshire subsidiary), weight: med}
+    - {ticker: R,    name: Ryder, weight: low}
+
+  competitors:
+    - {ticker: KDK,  name: Kodiak AI (public since Sep 2025), weight: high}
+    - {ticker: null, name: Waabi, weight: med}
+    - {ticker: null, name: Bot Auto, weight: med}
+    - {ticker: null, name: Torc Robotics (Daimler Truck, targets 2027), weight: med}
+    - {ticker: null, name: Plus / PlusAI (Traton/Navistar, targets 2027), weight: low}
+    - {ticker: TSLA, name: Tesla Semi (volume production 2026), weight: low}
+    - {ticker: null, name: Waymo (trucking wound down 2023 — robotaxi read-through only), weight: low}
+
+  regulators:
+    - {ticker: null, name: FMCSA (exemptions, L4 rules), weight: high}
+    - {ticker: null, name: NHTSA, weight: med}
+    - {ticker: null, name: Texas DOT / state AV rules, weight: med}
+
+# Macro signal ids (from macro/macro.yaml) most relevant to this name.
+macro_focus: [freight_industrial, jobs]

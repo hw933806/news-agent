@@ -1,0 +1,28 @@
+# Sources for CPNG, ordered by tier (tier 1 = highest signal).
+# tier drives ranking; `type` lets the engine pick the right fetch method.
+#
+# >>> CURATION HOOK: add the feeds/analysts/newsletters you already read here. <<<
+
+sources:
+  # Tier 1 — primary / company-specific
+  - {name: Coupang Investor Relations, type: ir, url: "https://ir.aboutcoupang.com/", tier: 1}
+  - {name: SEC EDGAR (CPNG filings/8-K), type: sec, query: "Coupang", tier: 1}
+  - {name: Analyst rating/PT changes, type: analyst, query: "Coupang CPNG analyst rating price target", tier: 1}
+
+  # Tier 2 — Korean regulators (recurring catalyst: KFTC appeal, PIPC breach fines, platform bills)
+  - {name: KFTC actions & court rulings, type: web_search, query: "Coupang KFTC fine ruling appeal", tier: 2}
+  - {name: PIPC / data-breach developments, type: web_search, query: "Coupang data breach PIPC fine", tier: 2}
+  - {name: Korea platform-regulation bills, type: web_search, query: "Korea online platform act e-commerce regulation", tier: 2}
+
+  # Tier 3 — Korea press (English)
+  - {name: Yonhap News, type: web, url: "https://en.yna.co.kr/", tier: 3}
+  - {name: KED Global (Korea Economic Daily), type: web, url: "https://www.kedglobal.com/", tier: 3}
+  - {name: Korea Herald, type: web, url: "https://www.koreaherald.com/", tier: 3}
+  - {name: Korea JoongAng Daily / Pulse, type: web, url: "https://koreajoongangdaily.joins.com/", tier: 3}
+
+  # Tier 4 — macro & general sweep
+  - {name: Bank of Korea rate & KRW/USD, type: macro, ref: korea_macro, tier: 4}
+  - {name: General news search, type: web_search, query: "Coupang CPNG", tier: 4}
+
+# >>> Add your personal feeds below (Substacks, X accounts, sell-side, Koyfin, etc.) <<<
+custom: []

@@ -1,0 +1,27 @@
+# Sources for RKT, ordered by tier (tier 1 = highest signal).
+# tier drives ranking; `type` lets the engine pick the right fetch method.
+#
+# >>> CURATION HOOK: add the feeds/analysts/newsletters you already read here. <<<
+
+sources:
+  # Tier 1 — primary / company-specific
+  - {name: Rocket Companies Investor Relations, type: ir, url: "https://ir.rocketcompanies.com/", tier: 1}
+  - {name: SEC EDGAR (RKT filings/8-K), type: sec, query: "Rocket Companies", tier: 1}
+  - {name: Analyst rating/PT changes, type: analyst, query: "Rocket Companies RKT analyst rating price target", tier: 1}
+
+  # Tier 2 — rates & policy (the thesis driver)
+  - {name: Fed / FOMC decisions & guidance, type: macro, ref: fed_fomc, tier: 2}
+  - {name: Freddie Mac PMMS 30-yr rate, type: macro, ref: mortgage_rates, tier: 2}
+  - {name: MBA Weekly Mortgage Applications Survey, type: web, url: "https://www.mba.org/news-and-research/newsroom", tier: 2}
+  - {name: FHFA / GSE policy news, type: web_search, query: "FHFA Fannie Mae Freddie Mac policy", tier: 2}
+
+  # Tier 3 — industry / trade press
+  - {name: HousingWire, type: web, url: "https://www.housingwire.com/", tier: 3}
+  - {name: National Mortgage News, type: web, url: "https://www.nationalmortgagenews.com/", tier: 3}
+  - {name: Inside Mortgage Finance, type: web, url: "https://www.insidemortgagefinance.com/", tier: 3}
+
+  # Tier 4 — general web sweep (catch-all, lowest priority)
+  - {name: General news search, type: web_search, query: "Rocket Companies RKT", tier: 4}
+
+# >>> Add your personal feeds below (Substacks, X accounts, sell-side, Koyfin, etc.) <<<
+custom: []

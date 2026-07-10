@@ -1,0 +1,37 @@
+ticker: WRBY
+name: Warby Parker
+description: >
+  Eyewear — DTC + 337 retail stores (~50 openings/yr) + eye exams/telehealth.
+  Growth drivers: store rollout, managed vision care (Versant in-network),
+  Target shop-in-shops (5 live, more in 2026), and Google Android XR
+  AI glasses (up to $150M Google commitment; launch fall 2026).
+
+# The universe of names whose news is relevant to WRBY. `weight` biases ranking:
+# self > key partners / direct competitors > category read-throughs.
+universe:
+  self:
+    - {ticker: WRBY, name: Warby Parker, weight: high}
+
+  partners:
+    - {ticker: GOOGL, name: Google (Android XR glasses, fall 2026), weight: high}
+    - {ticker: TGT,  name: Target (shop-in-shops), weight: med}
+    - {ticker: null, name: Samsung (intelligent eyewear co-launch), weight: med}
+    - {ticker: null, name: Versant Health (managed vision care), weight: med}
+
+  competitors:
+    - {ticker: null, name: EssilorLuxottica (LensCrafters, Ray-Ban Meta), weight: high}
+    - {ticker: EYE,  name: National Vision, weight: high}
+    - {ticker: BLCO, name: Bausch + Lomb, weight: low}
+    - {ticker: null, name: Zenni Optical, weight: low}
+    - {ticker: null, name: Visionworks, weight: low}
+
+  smart_glasses_race:   # category momentum reprices the Google partnership option
+    - {ticker: META, name: Meta (Ray-Ban Meta / Ray-Ban Display), weight: high}
+    - {ticker: AMZN, name: Amazon (smart glasses), weight: low}
+
+  insurance:
+    - {ticker: null, name: VSP Vision, weight: low}
+    - {ticker: null, name: EyeMed (EssilorLuxottica), weight: low}
+
+# Macro signal ids (from macro/macro.yaml) most relevant to this name.
+macro_focus: [consumer_inflation, trade_tariffs, jobs, fed_fomc]

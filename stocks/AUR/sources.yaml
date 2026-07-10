@@ -1,0 +1,28 @@
+# Sources for AUR, ordered by tier (tier 1 = highest signal).
+# tier drives ranking; `type` lets the engine pick the right fetch method.
+#
+# >>> CURATION HOOK: add the feeds/analysts/newsletters you already read here. <<<
+
+sources:
+  # Tier 1 — primary / company-specific
+  - {name: Aurora Investor Relations, type: ir, url: "https://ir.aurora.tech/", tier: 1}
+  - {name: Aurora blog (launch/lane announcements), type: web, url: "https://aurora.tech/blog", tier: 1}
+  - {name: SEC EDGAR (AUR filings/8-K), type: sec, query: "Aurora Innovation", tier: 1}
+  - {name: Analyst rating/PT changes, type: analyst, query: "Aurora Innovation AUR analyst rating price target", tier: 1}
+
+  # Tier 2 — regulatory (gating factor for the whole thesis)
+  - {name: FMCSA rulemaking & exemptions, type: web_search, query: "FMCSA autonomous truck exemption Aurora", tier: 2}
+  - {name: NHTSA AV actions, type: web_search, query: "NHTSA autonomous vehicle investigation truck", tier: 2}
+
+  # Tier 3 — industry / trade press
+  - {name: FreightWaves, type: web, url: "https://www.freightwaves.com/", tier: 3}
+  - {name: Transport Topics, type: web, url: "https://www.ttnews.com/", tier: 3}
+  - {name: Trucking Dive, type: web, url: "https://www.truckingdive.com/", tier: 3}
+  - {name: TechCrunch / The Verge AV coverage, type: web_search, query: "autonomous trucking Aurora Kodiak Waabi", tier: 3}
+
+  # Tier 4 — freight market & general sweep
+  - {name: Cass Freight Index / DAT / FTR, type: macro, ref: freight_industrial, tier: 4}
+  - {name: General news search, type: web_search, query: "Aurora Innovation AUR driverless", tier: 4}
+
+# >>> Add your personal feeds below (Substacks, X accounts, sell-side, Koyfin, etc.) <<<
+custom: []

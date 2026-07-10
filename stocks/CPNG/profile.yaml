@@ -1,0 +1,46 @@
+ticker: CPNG
+name: Coupang
+description: >
+  Korean e-commerce leader (Rocket Delivery/Fresh, WOW membership, ads) plus
+  Developing Offerings: Coupang Eats, Coupang Play, Taiwan (fast-growing),
+  Farfetch, fintech, Intelligent Cloud. FY25 revenue $34.5B. Key overhangs:
+  2025 data-breach fallout (record ~$409M PIPC fine Jun 2026 + vouchers),
+  KFTC/regulatory pressure, weak KRW (USD-reported revenue headwind).
+
+# The universe of names whose news is relevant to CPNG. `weight` biases ranking:
+# self > Korean competitors / regulators > cross-border threats > global comps.
+universe:
+  self:
+    - {ticker: CPNG, name: Coupang, weight: high}
+    - {ticker: null, name: Coupang Eats, weight: med}
+    - {ticker: null, name: Coupang Play, weight: low}
+    - {ticker: null, name: Coupang Taiwan, weight: med}
+    - {ticker: null, name: Farfetch (Coupang-owned), weight: med}
+    - {ticker: null, name: Coupang Intelligent Cloud, weight: med}
+
+  korea_competitors:
+    - {ticker: null, name: Naver / Naver Plus Store, weight: high}
+    - {ticker: null, name: Grand Opus Holding (Gmarket + AliExpress Korea JV, Shinsegae x Alibaba), weight: high}
+    - {ticker: null, name: Kakao, weight: low}
+    - {ticker: null, name: 11Street, weight: low}
+
+  cross_border:
+    - {ticker: BABA, name: Alibaba / AliExpress, weight: med}
+    - {ticker: PDD,  name: PDD / Temu, weight: med}
+    - {ticker: null, name: Shein, weight: low}
+
+  food_delivery:
+    - {ticker: null, name: Baemin (Delivery Hero; Uber reportedly bidding), weight: med}
+
+  regulators:   # a recurring catalyst for this name
+    - {ticker: null, name: Korea Fair Trade Commission (KFTC), weight: high}
+    - {ticker: null, name: PIPC (privacy regulator, data-breach fines), weight: high}
+    - {ticker: null, name: National Assembly platform-regulation bills, weight: med}
+
+  global_comps:
+    - {ticker: AMZN, name: Amazon, weight: low}
+    - {ticker: MELI, name: MercadoLibre, weight: low}
+    - {ticker: SE,   name: Sea Limited, weight: low}
+
+# Macro signal ids (from macro/macro.yaml) most relevant to this name.
+macro_focus: [korea_macro, trade_tariffs, consumer_inflation, jobs]

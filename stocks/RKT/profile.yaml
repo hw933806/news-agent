@@ -1,0 +1,39 @@
+ticker: RKT
+name: Rocket Companies
+description: >
+  Largest US mortgage originator (surpassed UWM in 2025) + top servicer + fintech.
+  Now owns Redfin (closed Jul 2025) and Mr. Cooper (closed Oct 2025) — combined
+  ~$2.1T servicing UPB, ~10M clients (~1 in 6 US mortgages). Extremely
+  rate-sensitive: origination volume moves with mortgage rates / Fed policy.
+
+# The universe of names whose news is relevant to RKT. `weight` biases ranking:
+# self > direct competitors / key partners > policy > broad read-throughs.
+universe:
+  self:
+    - {ticker: RKT, name: Rocket Companies, weight: high}
+    - {ticker: null, name: Rocket Mortgage, weight: high}
+    - {ticker: null, name: Redfin (Rocket subsidiary), weight: high}
+    - {ticker: null, name: Mr. Cooper (Rocket subsidiary), weight: high}
+    - {ticker: null, name: Rocket Money, weight: med}
+
+  competitors:
+    - {ticker: UWMC, name: UWM Holdings, weight: high}      # #2 originator
+    - {ticker: PFSI, name: PennyMac Financial, weight: high}
+    - {ticker: LDI,  name: loanDepot, weight: low}
+    - {ticker: BETR, name: Better Home & Finance, weight: low}
+    - {ticker: SOFI, name: SoFi, weight: med}
+    - {ticker: null, name: Guild Mortgage (private, Bayview-owned since Nov 2025), weight: low}
+
+  real_estate_adjacency:
+    - {ticker: Z,    name: Zillow, weight: med}
+    - {ticker: COMP, name: Compass (3-yr alliance to boost Redfin listings), weight: med}
+    - {ticker: OPEN, name: Opendoor, weight: low}
+
+  policy_gse:   # GSE/regulatory moves reprice the whole mortgage complex
+    - {ticker: null, name: FHFA, weight: high}
+    - {ticker: null, name: Fannie Mae, weight: med}
+    - {ticker: null, name: Freddie Mac, weight: med}
+    - {ticker: null, name: Mortgage Bankers Association (MBA), weight: med}
+
+# Macro signal ids (from macro/macro.yaml) most relevant to this name.
+macro_focus: [mortgage_rates, fed_fomc, housing_activity, jobs]
