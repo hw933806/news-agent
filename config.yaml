@@ -16,7 +16,10 @@ schedule:
   runtime: remote_scheduled_agent   # fires regardless of laptop state
 
 run:
-  lookback_hours: 72                # 3 days — covers the Fri→Mon weekend gap; dedupe (state.json) prevents repeats
+  # Date-window dedupe: non-overlapping windows make repeats structurally impossible,
+  # so state.json push-back is best-effort, not required (sandbox pushes broke 2026-07-10).
+  lookback_hours: 24                # Tue–Fri: items published since yesterday's run
+  monday_lookback_hours: 72         # Monday: cover the Fri→Mon weekend gap
   empty_ok: true                    # if nothing new, omit the stock (or skip email entirely)
   skip_email_if_all_empty: true
 
