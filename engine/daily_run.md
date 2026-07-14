@@ -1,64 +1,45 @@
 # News Agent — Daily Run Playbook
 
-This is the prompt the scheduled Claude agent follows every morning (~9am ET).
-Working dir: the `News Agent/` folder. Goal: a 1-page, high-signal email, grouped by
-stock, ranked highest→lowest within each stock. If nothing new for a stock, omit it.
+This mirrors the prompt the scheduled Claude agent follows every weekday (~8am ET).
+Working dir: the repo root. Goal: a 1-page, high-signal digest grouped by company,
+ranked by thesis relevance then signal. Delivery is IN-APP (the run's final message).
+The authoritative agent contract is `CORE.md`; this file covers the news spoke.
 
 ## Steps
 
-1. **Determine the window.** Use the last `run.lookback_hours` (24h) from `config.yaml`.
-   Note today's date in ET for the subject line.
+1. **Window.** Read `config.yaml -> run`: `monday_lookback_hours` on Mondays (ET),
+   else `lookback_hours`. Windows don't overlap between runs — that's the primary dedupe.
 
 2. **For each ticker in `config.yaml -> enabled`:**
-   a. Read `stocks/<TICKER>/profile.yaml` (universe + weights + macro_focus),
-      `stocks/<TICKER>/sources.yaml` (tiered sources + custom feeds), and
-      `stocks/<TICKER>/signal.md` (what counts as signal).
-   b. Gather news from the last 24h across the **whole universe** (the name itself +
-      competitors, suppliers, partners, demand read-throughs) and the macro signals in
-      `macro/macro.yaml` that list this ticker. Prefer higher-tier sources; use
-      WebSearch/WebFetch. Capture {title, url, source, date, one-line summary} per item.
-   c. **Dedupe:** write the gathered items to a temp JSON and run
-      `python engine/state.py filter <TICKER>` to drop anything already emailed.
-   d. **Judge signal** using `signal.md`: keep HIGH and (if room) MEDIUM; drop LOW/excluded.
-      Weight by the universe `weight` and macro relevance. Be strict — empty is fine.
-   e. **Rank** the survivors highest→lowest signal. Write 1 tight bullet each:
-      `**[Company]** — what happened + why it matters. ([source](url))`
+   a. Read the CORE — `companies/<T>/thesis.md`, `companies/<T>/input.md` — and the
+      news config: `companies/<T>/news/{profile.yaml, sources.yaml, signal.md}`.
+   b. **Inbox:** fold any `input.md` notes into the right files (thesis points →
+      thesis.md; companies/weights → news/profile.yaml; rules → news/signal.md;
+      sources → news/sources.yaml), clear to header, record for the changelog.
+   c. **Gather** news in-window across the whole universe + mapped `macro/macro.yaml`
+      signals. Verify publication DATES; discard out-of-window items ruthlessly.
+   d. **Dedupe (2nd layer):** `python engine/state.py filter <T>` if state.json has data.
+   e. **Judge:** thesis-relevant items (pillar confirmed/threatened, debate moved,
+      watched metric) are auto-HIGH with 🎯 + which pillar. Then signal.md HIGH,
+      MEDIUM if room. Strict — empty is a SUCCESS.
+   f. **Learnings:** durable discoveries → append attributed line to
+      `companies/<T>/learnings.md`; mechanical facts auto-applied to news/profile.yaml;
+      judgment calls as PROPOSAL lines. Most days: skip.
 
-3. **Compose** one email body in markdown (see template below). Omit any stock with no
-   new high-signal items. If ALL stocks are empty and `skip_email_if_all_empty: true`,
-   do not send — just log "no signal today".
+3. **Compose** one digest (`# Daily Stock News — <date_et>`, `## TICKER — Name` sections,
+   🎯 items first, one tight bullet per item, omit empty companies). End with a
+   `_Config updated:_` section if any files changed.
 
-4. **Save** the body to `output/<YYYY-MM-DD>.md` (audit trail).
+4. **Save** to `output/<YYYY-MM-DD>.md`.
 
-5. **Deliver in-app.** The cloud sandbox blocks outbound SMTP, so we do NOT send email.
-   Instead, the run's **final message IS the digest** — the reader opens it in the Claude
-   routines view (same as the other monitor agents). `deliver.py` is retained only for
-   manual/local use. If no stock has signal, the final message simply says "no signal today".
+5. **Deliver in-app:** final message = `📈 Daily Stock News — <Day> <Mon> <D>: <N>
+   item(s) — <tickers or 'no signal today'>.` + blank line + full digest.
 
-6. **Record seen:** mark the delivered items as seen so they never repeat:
-   `python engine/state.py mark <TICKER> <YYYY-MM-DD> < emailed_items.json` (per stock).
-
-7. **Persist state (remote runs only).** The cloud sandbox is ephemeral — commit the updated
-   dedupe cache and audit file back to the repo so tomorrow's run remembers what was shown:
-   `git add stocks/*/state.json output/ && git commit -m "run <YYYY-MM-DD>" && git push`.
-   If nothing changed (empty day) or push fails, log it and continue.
-
-## Email template
-```
-# Daily Stock News — {date_et}
-
-## FERG — Ferguson
-- **[Company]** — one-line what + why it matters. ([source](url))
-- ...
-
-## RKT — Rocket Companies
-- ...
-
-_(stocks with no new signal are omitted)_
-```
+6. **Persist (best-effort):** `state.py mark` per delivered ticker, then
+   `git pull --rebase` + `git add companies/ output/` + commit `run <date>` + push.
+   On push failure append `[state push FAILED: <reason>]` to the final message.
 
 ## Quality bar
-- High signal only. A short or empty email is a SUCCESS, not a failure.
-- One line per item. No price-action noise, no syndicated PR, no listicles.
-- Lead each stock with its single most important item.
-- Never repeat an item already sent (that's what state.py enforces).
+High signal only; one line per item; no price-action noise, syndicated PR, or listicles;
+lead each company with its most important item; never repeat an item already shown;
+config edits surgical, always changelogged. Short or empty digest = SUCCESS.

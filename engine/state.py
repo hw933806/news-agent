@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Dedupe state per stock. Standard library only.
+"""Dedupe state per company. Standard library only.
 
-Each stock has stocks/<TICKER>/state.json holding fingerprints of items already
-emailed, so the daily run never repeats a story ("nothing new -> nothing sent").
+Each company has companies/<TICKER>/news/state.json holding fingerprints of items
+already shown, so the daily run never repeats a story ("nothing new -> nothing sent").
 
 Fingerprint = sha1 of normalized (title + url). Entries older than KEEP_DAYS are
 pruned so the file doesn't grow forever.
@@ -20,11 +20,11 @@ import sys
 from pathlib import Path
 
 KEEP_DAYS = 60
-STOCKS_DIR = Path(__file__).resolve().parent.parent / "stocks"
+COMPANIES_DIR = Path(__file__).resolve().parent.parent / "companies"
 
 
 def _state_path(ticker: str) -> Path:
-    return STOCKS_DIR / ticker.upper() / "state.json"
+    return COMPANIES_DIR / ticker.upper() / "news" / "state.json"
 
 
 def _norm(s: str) -> str:

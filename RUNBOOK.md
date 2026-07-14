@@ -76,23 +76,24 @@ digest. (Quiet days legitimately say "no signal today".)
 **Run it now (test):** trigger via the routines UI ("Run") or `RemoteTrigger run`. Success
 signal: a new `run <date>` commit on `main` + a digest in the run output.
 
-**Add a stock:** `cp -r stocks/FERG stocks/<TICKER>`, edit the 3 files
-(`profile.yaml`, `sources.yaml`, `signal.md`), add the ticker under
+**Add a company:** `cp -r companies/FERG companies/<TICKER>`, edit the `news/` configs
+(`profile.yaml`, `sources.yaml`, `signal.md`), blank the core files, add the ticker under
 `config.yaml -> enabled`, commit + push. Zero engine/routine changes. Web-verify any
 time-sensitive facts first — training-data staleness (dead tickers, closed M&A) was the
 main defect found when RKT/AUR/WRBY/CPNG were built on 2026-07-10.
 
-**Evolve a stock (the compounding loop, since 2026-07-13):** each stock folder also has:
-- `thesis.md` — the live investment thesis. The daily run ranks news by relevance to it;
-  items touching a pillar/debate/metric are auto-HIGH and marked 🎯. Edit it directly, or:
+**Evolve a company (the compounding core, since 2026-07-13 — full contract in `CORE.md`):**
+`companies/<T>/` is the hub shared by all agents:
+- `thesis.md` — the live investment thesis (human-owned). Every agent ranks by relevance
+  to it; thesis-relevant items are auto-HIGH and marked 🎯.
 - `input.md` — the inbox. Drop raw notes anytime (GitHub app works from a phone); the next
-  morning's run folds them into thesis/signal/profile/sources, clears the inbox, and lists
-  the changes in a `_Config updated:_` section at the end of that day's digest.
-- `learnings.md` — agent-maintained. Durable discoveries only. Mechanical facts
-  (delistings, closed M&A) are auto-applied to profile.yaml; judgment calls are written as
-  `PROPOSAL:` lines and surfaced in the digest — approve/reject via the inbox.
-All config edits are git commits, so every change is reviewable and revertible.
-(`FERG-input.md` is superseded by `input.md`.)
+  agent run folds them into thesis/config files, clears the inbox, and lists the changes
+  in a `_Config updated:_` section of its output.
+- `learnings.md` — append-only, agent-attributed discoveries; judgment calls as
+  `PROPOSAL:` lines — approve/reject via the inbox.
+- `evidence/` — dated distilled notes from any agent (news events, transcripts, expert calls).
+- `news/` — the news spoke's private config.
+All edits are git commits: reviewable and revertible.
 
 **Rotate the PAT:** regenerate the fine-grained token at github.com/settings/personal-access-tokens,
 then `RemoteTrigger update` the routine prompt's `git push` URL with the new token. Nothing in

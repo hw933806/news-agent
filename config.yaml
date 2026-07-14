@@ -1,5 +1,5 @@
 # News Agent — global config
-# Adding a stock: create stocks/<TICKER>/ (copy an existing one) and list it under `enabled`.
+# Adding a company: create companies/<TICKER>/ (copy an existing one) and list it under `enabled`.
 
 email:
   to: hw933806@gmail.com

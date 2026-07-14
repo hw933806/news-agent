@@ -1,58 +1,53 @@
-# News Agent — Architecture (DRAFT v1)
+# Architecture — Research OS (v2, 2026-07-13)
 
 ## Principle
-**Stock-agnostic engine + per-stock profile.** Adding a stock = drop a new folder under
-`stocks/`. The engine never changes. No rewriting to scale.
+**Hub-and-spoke.** The core knowledge layer (`companies/<TICKER>/` — thesis, inbox,
+learnings, evidence) is the center of gravity. Agents are spokes: each reads the core
+for context, does its specialized job, and writes what it learned back into the core.
+The core compounds; agents are replaceable. The full contract lives in `CORE.md`.
+
+(v1 was news-agent-centric with per-stock config under `stocks/`. Inverted 2026-07-13.)
 
 ## Layout
 ```
-News Agent/
-├── config.yaml              # global: email recipient, schedule, enabled stocks
-├── engine/                  # shared, stock-agnostic — written ONCE
-│   ├── daily_run.md         #   PLAYBOOK: the prompt the scheduled Claude agent follows
-│   ├── deliver.py           #   send email via Gmail SMTP (stdlib only)
-│   └── state.py             #   dedupe: fingerprint + track already-seen items per stock
-#
-# Reasoning (fetch via WebSearch/WebFetch, judge signal, rank, compose) is done by
-# Claude during the scheduled run — NOT by Python. Python = plumbing only.
-├── macro/
-│   └── macro.yaml           # shared macro signals + which stocks each moves
-├── stocks/                  # THE MODULAR PART — one folder per stock
-│   ├── FERG/
-│   │   ├── profile.yaml     #   universe: self, competitors, partners, suppliers, read-throughs
-│   │   ├── sources.yaml     #   ranked sources (IR, trade press, regulators…)
-│   │   ├── signal.md        #   what counts as high vs low signal for THIS name
-│   │   └── state.json       #   seen-news cache (auto-managed) → enables "nothing new = nothing sent"
-│   ├── RKT/  … (same files)
-│   ├── AUR/  …
-│   ├── WRBY/ …
-│   └── CPNG/ …
-└── output/                  # archive of each day's email (audit trail)
+CORE.md                      # the hub-and-spoke contract — read this first
+companies/<TICKER>/          # THE CORE (hub), one folder per name
+│   ├── thesis.md            #   human-owned live thesis — every agent ranks against it
+│   ├── input.md             #   human inbox — folded & cleared by the next agent run
+│   ├── learnings.md         #   append-only agent discoveries + proposals (attributed)
+│   ├── evidence/            #   dated distilled notes from any agent/source
+│   └── news/                #   news-spoke config: profile.yaml, sources.yaml,
+│                            #     signal.md, state.json (dedupe cache)
+engine/                      # news-spoke plumbing (Python = plumbing; Claude = judgment)
+│   ├── daily_run.md         #   playbook mirrored by the routine prompt
+│   ├── state.py             #   dedupe fingerprints (companies/<T>/news/state.json)
+│   └── deliver.py           #   legacy email path (manual/local use only)
+macro/macro.yaml             # shared macro signals mapped to the names they move
+output/                      # daily digest archive (audit trail)
+config.yaml                  # enabled tickers, lookback windows
+RUNBOOK.md                   # operations: deployment, schedule, failure modes
 ```
 
-## How a daily run works
-1. `run.py` reads `config.yaml` → list of enabled stocks.
-2. For each stock: load `profile.yaml` + `sources.yaml`, fetch last 24h news across its universe.
-3. Pull relevant `macro/` signals (only those mapped to that stock).
-4. `dedupe.py` drops anything already in `state.json`.
-5. `rank.py` scores each item by signal using `signal.md` rules.
-6. `compose.py` merges all stocks into ONE 1-page email, highest→lowest signal.
-7. `deliver.py` sends at 9am ET. Empty sections are omitted entirely.
+## Spokes
+- **news** (live): weekday 8am ET cloud routine. Sweeps each company's universe +
+  macro, ranks by thesis relevance (🎯) then signal rules, delivers an in-app digest
+  with push notification, folds the inbox, appends learnings, pushes state back.
+- **transcripts** (planned): per earnings call/filing — distill vs. the thesis into
+  `evidence/`, flag pillar-relevant surprises.
+- **expert-calls** (session-based): the expert-call-synthesis skill's outputs get
+  distilled into `evidence/` + thesis updates with the human in the loop.
 
-## To add a 6th stock later
-`cp -r stocks/FERG stocks/NEWTICKER`, edit the 3 yaml/md files, add ticker to `config.yaml`.
-Done — zero engine changes.
+## The compounding loop
+Human work (memos, models, calls) → thesis.md / input.md → every agent's judgment
+shifts → agents surface thesis-relevant signal + write evidence/learnings → richer
+core → better judgment. All of it is git history: reviewable, revertible, auditable.
 
-## Decisions (LOCKED)
-1. **Profile format:** YAML config per stock (no code to add a stock).
-2. **Email layout:** Grouped by stock; items ranked highest→lowest signal within each block.
-   Stocks with no news omitted entirely.
-3. **Language/runtime:** Python.
+## To add a company
+`cp -r` an existing `companies/<T>` folder, edit `news/` configs + blank the core files,
+add the ticker to `config.yaml`, push. Zero engine changes. Web-verify time-sensitive
+facts when building `news/profile.yaml` — training-data staleness is the main defect.
 
-## Plumbing (LOCKED)
-- **Delivery:** Gmail SMTP + App Password (credential kept local, out of repo).
-- **Runtime:** Remote scheduled agent (cron), fires 9am ET regardless of laptop state.
-- **Recipient:** hw933806@gmail.com
-
-## Still open
-- **Source curation** — fold in the feeds/analysts you already read before locking profiles.
+## To add an agent (spoke)
+Follow `CORE.md`: read thesis first, write evidence/learnings back, propose rather than
+impose, surgical edits with a changelog, commit+push. Keep spoke-private config in
+`companies/<T>/<spoke>/`.
