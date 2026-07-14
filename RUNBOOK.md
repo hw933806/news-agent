@@ -82,8 +82,17 @@ signal: a new `run <date>` commit on `main` + a digest in the run output.
 time-sensitive facts first — training-data staleness (dead tickers, closed M&A) was the
 main defect found when RKT/AUR/WRBY/CPNG were built on 2026-07-10.
 
-**Tune FERG:** edit `stocks/FERG/FERG-input.md` (the human scratch sheet), then fold changes
-into the 3 machine-read files. Commit + push.
+**Evolve a stock (the compounding loop, since 2026-07-13):** each stock folder also has:
+- `thesis.md` — the live investment thesis. The daily run ranks news by relevance to it;
+  items touching a pillar/debate/metric are auto-HIGH and marked 🎯. Edit it directly, or:
+- `input.md` — the inbox. Drop raw notes anytime (GitHub app works from a phone); the next
+  morning's run folds them into thesis/signal/profile/sources, clears the inbox, and lists
+  the changes in a `_Config updated:_` section at the end of that day's digest.
+- `learnings.md` — agent-maintained. Durable discoveries only. Mechanical facts
+  (delistings, closed M&A) are auto-applied to profile.yaml; judgment calls are written as
+  `PROPOSAL:` lines and surfaced in the digest — approve/reject via the inbox.
+All config edits are git commits, so every change is reviewable and revertible.
+(`FERG-input.md` is superseded by `input.md`.)
 
 **Rotate the PAT:** regenerate the fine-grained token at github.com/settings/personal-access-tokens,
 then `RemoteTrigger update` the routine prompt's `git push` URL with the new token. Nothing in
