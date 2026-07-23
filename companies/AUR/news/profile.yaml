@@ -15,7 +15,7 @@ universe:
   partners_oems:
     - {ticker: PCAR, name: PACCAR (Peterbilt/Kenworth), weight: high}
     - {ticker: null, name: Volvo Trucks / Volvo Autonomous Solutions (VNL Autonomous), weight: high}
-    - {ticker: null, name: International / Traton (LT Series, from Q2 2026), weight: med}
+    - {ticker: null, name: International / Traton (LT Series — 2nd-gen driverless fleet in service since Jul 2026), weight: med}
     - {ticker: null, name: Continental (Aurora Driver hardware, mass production 2027), weight: med}
     - {ticker: NVDA, name: NVIDIA (DRIVE Thor), weight: med}
     - {ticker: FN,   name: Fabrinet (2nd-gen hardware kit builder), weight: low}
