@@ -28,6 +28,8 @@ universe:
     - {ticker: SNDR, name: Schneider, weight: med}
     - {ticker: null, name: McLane (Berkshire subsidiary), weight: med}
     - {ticker: R,    name: Ryder, weight: low}
+    - {ticker: null, name: Value Truck (2nd-gen driverless customer, Laredo/nearshoring), weight: low}
+    - {ticker: null, name: Charger Logistics (2nd-gen driverless customer, Dallas-Laredo), weight: low}
 
   competitors:
     - {ticker: KDK,  name: Kodiak AI (public since Sep 2025), weight: high}
