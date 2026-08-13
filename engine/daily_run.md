@@ -11,8 +11,10 @@ The authoritative agent contract is `CORE.md`; this file covers the news spoke.
    else `lookback_hours`. Windows don't overlap between runs — that's the primary dedupe.
 
 2. **For each ticker in `config.yaml -> enabled`:**
-   a. Read the CORE — `companies/<T>/thesis.md`, `companies/<T>/input.md` — and the
-      news config: `companies/<T>/news/{profile.yaml, sources.yaml, signal.md}`.
+   a. Read the CORE — `companies/<T>/thesis.md`, `companies/<T>/knowledge.md`,
+      `companies/<T>/input.md` — and the news config:
+      `companies/<T>/news/{profile.yaml, sources.yaml, signal.md}`. (You never see
+      `sources/` — it's local-only; `knowledge.md` is the synthesis of it.)
    b. **Inbox:** fold any `input.md` notes into the right files (thesis points →
       thesis.md; companies/weights → news/profile.yaml; rules → news/signal.md;
       sources → news/sources.yaml), clear to header, record for the changelog.
@@ -22,9 +24,13 @@ The authoritative agent contract is `CORE.md`; this file covers the news spoke.
    e. **Judge:** thesis-relevant items (pillar confirmed/threatened, debate moved,
       watched metric) are auto-HIGH with 🎯 + which pillar. Then signal.md HIGH,
       MEDIUM if room. Strict — empty is a SUCCESS.
-   f. **Learnings:** durable discoveries → append attributed line to
-      `companies/<T>/learnings.md`; mechanical facts auto-applied to news/profile.yaml;
-      judgment calls as PROPOSAL lines. Most days: skip.
+   f. **Knowledge:** durable discoveries → append an attributed, cited line to the **Log**
+      in `companies/<T>/knowledge.md` (`- <date> [news] ... [news <date>]`) and fold the fact
+      into its Synthesis if it matters; mechanical facts auto-applied to news/profile.yaml;
+      thesis-level judgment calls as `PROPOSAL` lines. Most days: skip.
+   g. **Cross-post:** if this item is materially relevant to *another* enabled name's thesis,
+      append a cited note to that name's `knowledge.md` Log tagged `[news→<OTHER>]` (CORE.md
+      → "Cross-company relevance"). External macro drivers are already handled by `macro/`.
 
 3. **Compose** one digest (`# Daily Stock News — <date_et>`, `## TICKER — Name` sections,
    🎯 items first, one tight bullet per item, omit empty companies). End with a

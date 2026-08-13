@@ -14,3 +14,9 @@ __pycache__/
 # Scratch files from a run (state.json IS tracked on purpose — it's the dedupe cache)
 *.tmp
 emailed_items.json
+
+# Raw diligence files are LOCAL-ONLY — this repo is public. Ingest produces the
+# committed synthesis (knowledge.md); the raw sources never get pushed.
+# Only the tracked README in each sources/ folder is kept.
+companies/*/sources/*
+!companies/*/sources/README.md

@@ -77,23 +77,25 @@ digest. (Quiet days legitimately say "no signal today".)
 signal: a new `run <date>` commit on `main` + a digest in the run output.
 
 **Add a company:** `cp -r companies/FERG companies/<TICKER>`, edit the `news/` configs
-(`profile.yaml`, `sources.yaml`, `signal.md`), blank the core files, add the ticker under
+(`profile.yaml`, `sources.yaml`, `signal.md`), blank the core files (`thesis.md`,
+`knowledge.md`, `input.md`) and empty `sources/` (keep its README), add the ticker under
 `config.yaml -> enabled`, commit + push. Zero engine/routine changes. Web-verify any
 time-sensitive facts first — training-data staleness (dead tickers, closed M&A) was the
 main defect found when RKT/AUR/WRBY/CPNG were built on 2026-07-10.
 
-**Evolve a company (the compounding core, since 2026-07-13 — full contract in `CORE.md`):**
-`companies/<T>/` is the hub shared by all agents:
+**Evolve a company (the compounding core, v3 since 2026-08-13 — full contract in `CORE.md`):**
+`companies/<T>/` is the brain shared by all agents:
+- `sources/` — raw diligence (memos, models, expert calls). **Local-only, git-ignored** —
+  the repo is public. Drop a file here, then run ingest (`INGEST.md`) to fold it into knowledge.
+- `knowledge.md` — the single living synthesis (Synthesis + append-only Log), every claim
+  cited. Replaces the old `evidence/` + `learnings.md` (never used in practice).
 - `thesis.md` — the live investment thesis (human-owned). Every agent ranks by relevance
   to it; thesis-relevant items are auto-HIGH and marked 🎯.
 - `input.md` — the inbox. Drop raw notes anytime (GitHub app works from a phone); the next
-  agent run folds them into thesis/config files, clears the inbox, and lists the changes
+  agent run folds them into thesis/knowledge/config, clears the inbox, and lists the changes
   in a `_Config updated:_` section of its output.
-- `learnings.md` — append-only, agent-attributed discoveries; judgment calls as
-  `PROPOSAL:` lines — approve/reject via the inbox.
-- `evidence/` — dated distilled notes from any agent (news events, transcripts, expert calls).
 - `news/` — the news spoke's private config.
-All edits are git commits: reviewable and revertible.
+All *synthesis* edits are git commits: reviewable and revertible. Raw `sources/` never commit.
 
 **Rotate the PAT:** regenerate the fine-grained token at github.com/settings/personal-access-tokens,
 then `RemoteTrigger update` the routine prompt's `git push` URL with the new token. Nothing in
