@@ -15,3 +15,5 @@ first ingest.)_
 _(Append-only, newest last. One dated + attributed line per ingested file or durable
 discovery. `PROPOSAL (date) [agent]:` lines flag thesis-level judgment calls for the
 human to approve via `input.md` or a session. Never edit or delete prior lines.)_
+
+- 2026-08-24 [news] FTC settled its antitrust case against Zillow + Rocket's Redfin hours before trial: the ILS/rental-listing partnership stays intact through at least 2030, Redfin keeps the $100M and its Zillow-syndicated multifamily listings, but must independently re-enter rental-ad sales within 6 months; ~$2M paid to reimburse state AGs. Removes a legal overhang on the Redfin integration. [news 2026-08-24]
