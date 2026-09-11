@@ -17,3 +17,4 @@ discovery. `PROPOSAL (date) [agent]:` lines flag thesis-level judgment calls for
 human to approve via `input.md` or a session. Never edit or delete prior lines.)_
 
 - 2026-08-24 [news] FTC settled its antitrust case against Zillow + Rocket's Redfin hours before trial: the ILS/rental-listing partnership stays intact through at least 2030, Redfin keeps the $100M and its Zillow-syndicated multifamily listings, but must independently re-enter rental-ad sales within 6 months; ~$2M paid to reimburse state AGs. Removes a legal overhang on the Redfin integration. [news 2026-08-24]
+- 2026-09-11 [news] Rocket became the first IMB to lift its internal conforming loan limit for 2027 to $845,000 (lower-48, ~+1.5% vs the current FHFA limit of $832,750; ~$1.27M in AK/HI), a volume land-grab ahead of FHFA's formal November limit announcement. [news 2026-09-11]
