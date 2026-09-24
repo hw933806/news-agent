@@ -15,3 +15,4 @@ first ingest.)_
 _(Append-only, newest last. One dated + attributed line per ingested file or durable
 discovery. `PROPOSAL (date) [agent]:` lines flag thesis-level judgment calls for the
 human to approve via `input.md` or a session. Never edit or delete prior lines.)_
+- 2026-09-24 [news] Google/Android XR Intelligent Eyewear launch has slipped from September to end-Oct/early-Nov 2026 (per a Citizens store-visit note, Sep 23; employee training completed ~2 weeks prior). Citizens trimmed its 2026 estimates on the delay but reiterated Market Outperform / $29 PT, framing the glasses as a multi-year revenue/profit inflection. First watched milestone (launch date) on the Google partnership now confirmed as Q4, not Q3. [news 2026-09-24]
